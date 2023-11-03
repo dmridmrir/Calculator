@@ -11,3 +11,6 @@
 * PyQt5 모듈 설치 (pip install PyQt5)
 * 계산기 파일 실행 (python calaculator_main.py)
 
+## Reference
+
+* https://studyingrabbit.tistory.com/23 링크의 코드를 참고하였음
