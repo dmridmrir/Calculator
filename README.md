@@ -5,6 +5,7 @@
 
 * github 장소 생성 및 관리 실습
 * PyQt5를 이용한 계산기 기능 및 사용방법 개선
+* 실무에서 github를 사용할 정도의 실력 구비
   
 ## Getting started
 
