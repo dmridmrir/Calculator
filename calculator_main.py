@@ -56,19 +56,24 @@ class Main(QDialog):
         main_layout.addWidget(button_division, 3, 3)
 
         # =, clear, backspace 버튼 생성
-        button_equal = QPushButton("=")
-        button_clear1 = QPushButton("CE")
-        button_clear2 = QPushButton("C")
-        button_backspace = QPushButton("◁")
-
         # % 1/x x^2 sqrt(x) +/- 키 생성
         button_mod = QPushButton("%")
         button_fountain = QPushButton("1/x")
         button_square = QPushButton("x²")
         button_sqrt = QPushButton("√x")
         button_sign = QPushButton("+/-")
+        button_equal = QPushButton("=")
+        button_clear1 = QPushButton("CE")
+        button_clear2 = QPushButton("C")
+        button_backspace = QPushButton("◁")
+
 
         #새로 생성한 버튼 추가
+        # =, clear, backspace 버튼을 그리드 레이아웃에 추가
+        main_layout.addWidget(button_clear1, 2, 1)
+        main_layout.addWidget(button_clear2, 2, 2)
+        main_layout.addWidget(button_backspace, 2, 3)
+        main_layout.addWidget(button_equal, 7, 3)
         main_layout.addWidget(button_mod, 2, 0)
         main_layout.addWidget(button_fountain, 3, 0)
         main_layout.addWidget(button_square, 3, 1)
@@ -81,11 +86,7 @@ class Main(QDialog):
         button_clear2.clicked.connect(self.button_clear_clicked)        
         button_backspace.clicked.connect(self.button_backspace_clicked)
 
-        # =, clear, backspace 버튼을 그리드 레이아웃에 추가
-        main_layout.addWidget(button_clear1, 2, 1)
-        main_layout.addWidget(button_clear2, 2, 2)
-        main_layout.addWidget(button_backspace, 2, 3)
-        main_layout.addWidget(button_equal, 7, 3)
+
         # 위젯을 설정한 레이아웃으로 설정
         self.setLayout(main_layout)
         self.show()
