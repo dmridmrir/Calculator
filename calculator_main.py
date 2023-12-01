@@ -85,6 +85,11 @@ class Main(QDialog):
         button_clear1.clicked.connect(self.button_clear_clicked)
         button_clear2.clicked.connect(self.button_clear_clicked)        
         button_backspace.clicked.connect(self.button_backspace_clicked)
+        button_mod.clicked.connect(self.button_mod_clicked)
+        button_fountain.clicked.connect(self.button_fountain_clicked)
+        button_square.clicked.connect(self.button_square_clicked)
+        button_sqrt.clicked.connect(self.button_sqrt_clicked)
+        button_sign.clicked.connect(self.button_sign_clicked)
 
 
         # 위젯을 설정한 레이아웃으로 설정
@@ -140,6 +145,16 @@ class Main(QDialog):
     def button_backspace_clicked(self):
         current_equation = self.equation.text()
         self.equation.setText(current_equation[:-1])
+
+    def button_mod_clicked(self):
+
+    def button_fountain_clicked(self):
+
+    def button_squar_clicked(self):
+
+    def button_sqrt_clicked(self):
+
+    def button_sign_clicked(self):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
