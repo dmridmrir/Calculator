@@ -20,7 +20,7 @@ class Main(QDialog):
         # 숫자 버튼 생성하고, 그리드 레이아웃에 추가
         # 각 숫자 버튼을 클릭했을 때, 숫자가 수식창에 입력될 수 있도록 시그널 설정
         number_button_dict = {}
-        order = [7, 8, 9, 4, 5, 6, 1, 2, 3]  # 변경된 배치 순서
+        order = [7, 8, 9, 4, 5, 6, 1, 2, 3] 
         for i, number in enumerate(order):
             number_button_dict[number] = QPushButton(str(number))
             number_button_dict[number].clicked.connect(lambda state, num=number:
@@ -32,7 +32,7 @@ class Main(QDialog):
         number_button_dict[0].clicked.connect(lambda state, num=0: self.number_button_clicked(num))
         main_layout.addWidget(number_button_dict[0], 7, 1)
 
-        # 소숫점 버튼과 00 버튼을 그리드 레이아웃에 추가하고 시그널 설정
+        # 소숫점 버튼을 그리드 레이아웃에 추가하고 시그널 설정
         button_dot = QPushButton(".")
         button_dot.clicked.connect(lambda state, num=".": self.number_button_clicked(num))
         main_layout.addWidget(button_dot, 7, 2)
@@ -103,47 +103,29 @@ class Main(QDialog):
 
     def button_operation_clicked(self, operation):
         current_equation = self.equation.text()
-
-        # 현재 연산자와 수식을 문자열로 저장
         self.arr.extend([str(current_equation), str(operation)])
-
-        # 다음 연산자로 이동
         self.i += 1
-
-        # 현재 수식 초기화
         self.equation.setText("")
 
     def evaluate_expression(self, expression):
-        # 사칙연산 우선 순위를 고려하여 수식 계산
-        tokens = expression.replace(' ', '')
-        result = float(tokens[0])
-        current_operator = None
-
-        for token in tokens[1:]:
-            if token.isdigit() or token == '.':
-                if current_operator == '+':
-                    result += float(token)
-                elif current_operator == '-':
-                    result -= float(token)
-                elif current_operator == '*':
-                    result *= float(token)
-                elif current_operator == '÷':
-                    result /= float(token)
-            else:
-                current_operator = token
-
+        result = eval(expression) if expression else None
         return result
 
     def button_equal_clicked(self):
         equation = self.equation.text()
+        result = self.evaluate_expression(''.join(filter(None, self.arr)))
+        self.arr.append(str(equation))
+        self.equation.setText(str(result))
+        self.arr = [str(result)]
+
+    def button_equal_clicked(self):
+        equation = self.equation.text()
         try:
-            # 현재 수식과 이전 수식을 평가하여 결과를 표시
             self.arr.append(str(equation))
 
             result = self.evaluate_expression(''.join(filter(None, self.arr)))
             self.equation.setText(str(result))
 
-            # 결과를 다시 수식 배열에 저장
             self.arr = [str(result)]
 
         except Exception as e:
