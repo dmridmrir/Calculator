@@ -99,20 +99,19 @@ class Main(QDialog):
     #################
     ### functions ###
     #################
-    arr = [None]
-    i = 0
+    arr = []
 
     def number_button_clicked(self, num):
         current_equation = self.equation.text()
         self.equation.setText(current_equation + str(num))
-
+        self.arr.append(str(num))
+        
     def button_operation_clicked(self, operation):
-        equation = self.equation.text()
-        equation += operation
-        self.equation.setText(equation)
+        self.arr.append(operation)
+        self.equation.setText("")
 
     def button_equal_clicked(self):
-        equation = self.equation.text()
+        equation = ''.join(self.arr)
         solution = eval(equation)
         self.equation.setText(str(solution))
 
