@@ -85,11 +85,11 @@ class Main(QDialog):
         button_clear1.clicked.connect(self.button_clear_clicked)
         button_clear2.clicked.connect(self.button_clear_clicked)        
         button_backspace.clicked.connect(self.button_backspace_clicked)
-        button_mod.clicked.connect(self.button_mod_clicked)
-        button_fountain.clicked.connect(self.button_fountain_clicked)
-        button_square.clicked.connect(self.button_square_clicked)
-        button_sqrt.clicked.connect(self.button_sqrt_clicked)
-        button_sign.clicked.connect(self.button_sign_clicked)
+        #button_mod.clicked.connect(self.button_mod_clicked)
+        #button_fountain.clicked.connect(self.button_fountain_clicked)
+        #button_square.clicked.connect(self.button_square_clicked)
+        #button_sqrt.clicked.connect(self.button_sqrt_clicked)
+        #button_sign.clicked.connect(self.button_sign_clicked)
 
 
         # 위젯을 설정한 레이아웃으로 설정
@@ -107,36 +107,14 @@ class Main(QDialog):
         self.equation.setText(current_equation + str(num))
 
     def button_operation_clicked(self, operation):
-        current_equation = self.equation.text()
-        self.arr.extend([str(current_equation), str(operation)])
-        self.i += 1
-        self.equation.setText("")
-
-    def evaluate_expression(self, expression):
-        result = eval(expression) if expression else None
-        return result
+        equation = self.equation.text()
+        equation += operation
+        self.equation.setText(equation)
 
     def button_equal_clicked(self):
         equation = self.equation.text()
-        result = self.evaluate_expression(''.join(filter(None, self.arr)))
-        self.arr.append(str(equation))
-        self.equation.setText(str(result))
-        self.arr = [str(result)]
-
-    def button_equal_clicked(self):
-        equation = self.equation.text()
-        try:
-            self.arr.append(str(equation))
-
-            result = self.evaluate_expression(''.join(filter(None, self.arr)))
-            self.equation.setText(str(result))
-
-            self.arr = [str(result)]
-
-        except Exception as e:
-            error_message = f"에러: {e}"
-            QMessageBox.critical(self, "에러", error_message)
-            self.equation.setText("")
+        solution = eval(equation)
+        self.equation.setText(str(solution))
 
     def button_clear_clicked(self):
         self.equation.setText("")
@@ -146,15 +124,15 @@ class Main(QDialog):
         current_equation = self.equation.text()
         self.equation.setText(current_equation[:-1])
 
-    def button_mod_clicked(self):
+    #def button_mod_clicked(self):
 
-    def button_fountain_clicked(self):
+    #def button_fountain_clicked(self):
 
-    def button_squar_clicked(self):
+    #def button_squar_clicked(self):
 
-    def button_sqrt_clicked(self):
+    #def button_sqrt_clicked(self):
 
-    def button_sign_clicked(self):
+    #def button_sign_clicked(self):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
