@@ -97,58 +97,19 @@ class Main(QDialog):
     i = 0
 
     def number_button_clicked(self, num):
-        current_equation = self.equation.text()
-        self.equation.setText(current_equation + str(num))
+        equation = self.equation.text()
+        equation += str(num)
+        self.equation.setText(equation)
 
     def button_operation_clicked(self, operation):
-        current_equation = self.equation.text()
-
-        # 현재 연산자와 수식을 문자열로 저장
-        self.arr.extend([str(current_equation), str(operation)])
-
-        # 다음 연산자로 이동
-        self.i += 1
-
-        # 현재 수식 초기화
-        self.equation.setText("")
-
-    def evaluate_expression(self, expression):
-        # 사칙연산 우선 순위를 고려하여 수식 계산
-        tokens = expression.replace(' ', '')
-        result = float(tokens[0])
-        current_operator = None
-
-        for token in tokens[1:]:
-            if token.isdigit() or token == '.':
-                if current_operator == '+':
-                    result += float(token)
-                elif current_operator == '-':
-                    result -= float(token)
-                elif current_operator == '*':
-                    result *= float(token)
-                elif current_operator == '÷':
-                    result /= float(token)
-            else:
-                current_operator = token
-
-        return result
+        equation = self.equation.text()
+        equation += operation
+        self.equation.setText(equation)
 
     def button_equal_clicked(self):
         equation = self.equation.text()
-        try:
-            # 현재 수식과 이전 수식을 평가하여 결과를 표시
-            self.arr.append(str(equation))
-
-            result = self.evaluate_expression(''.join(filter(None, self.arr)))
-            self.equation.setText(str(result))
-
-            # 결과를 다시 수식 배열에 저장
-            self.arr = [str(result)]
-
-        except Exception as e:
-            error_message = f"에러: {e}"
-            QMessageBox.critical(self, "에러", error_message)
-            self.equation.setText("")
+        solution = eval(equation)
+        self.solution.setText(str(solution))
 
     def button_clear_clicked(self):
         self.equation.setText("")
