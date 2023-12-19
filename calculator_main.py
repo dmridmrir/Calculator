@@ -42,12 +42,14 @@ class Main(QDialog):
         button_minus = QPushButton("-")
         button_product = QPushButton("x")
         button_division = QPushButton("÷")
+        button_mod = QPushButton("%")
 
         # 사칙연산 버튼을 클릭했을 때, 각 사칙연산 부호가 수식창에 추가될 수 있도록 시그널 설정
         button_plus.clicked.connect(lambda state, operation="+": self.button_operation_clicked(operation))
         button_minus.clicked.connect(lambda state, operation="-": self.button_operation_clicked(operation))
         button_product.clicked.connect(lambda state, operation="*": self.button_operation_clicked(operation))
-        button_division.clicked.connect(lambda state, operation="÷": self.button_operation_clicked(operation))
+        button_division.clicked.connect(lambda state, operation="/": self.button_operation_clicked(operation))
+        button_mod.clicked.connect(lambda state,operation = "%": self.button_operation_clicked(operation))
 
         # 사칙연산 버튼을 그리드 레이아웃에 추가
         main_layout.addWidget(button_plus, 6, 3)
@@ -56,8 +58,7 @@ class Main(QDialog):
         main_layout.addWidget(button_division, 3, 3)
 
         # =, clear, backspace 버튼 생성
-        # % 1/x x^2 sqrt(x) +/- 키 생성
-        button_mod = QPushButton("%")
+        # 1/x x^2 sqrt(x) +/- 키 생성
         button_fountain = QPushButton("1/x")
         button_square = QPushButton("x²")
         button_sqrt = QPushButton("√x")
@@ -85,11 +86,10 @@ class Main(QDialog):
         button_clear1.clicked.connect(self.button_clear_clicked)
         button_clear2.clicked.connect(self.button_clear_clicked)        
         button_backspace.clicked.connect(self.button_backspace_clicked)
-        #button_mod.clicked.connect(self.button_mod_clicked)
-        #button_fountain.clicked.connect(self.button_fountain_clicked)
-        #button_square.clicked.connect(self.button_square_clicked)
-        #button_sqrt.clicked.connect(self.button_sqrt_clicked)
-        #button_sign.clicked.connect(self.button_sign_clicked)
+        button_fountain.clicked.connect(self.button_fountain_clicked)
+        button_square.clicked.connect(self.button_square_clicked)
+        button_sqrt.clicked.connect(self.button_sqrt_clicked)
+        button_sign.clicked.connect(self.button_sign_clicked)
 
 
         # 위젯을 설정한 레이아웃으로 설정
@@ -99,20 +99,19 @@ class Main(QDialog):
     #################
     ### functions ###
     #################
-    arr = [None]
-    i = 0
+    arr = []
 
     def number_button_clicked(self, num):
         current_equation = self.equation.text()
         self.equation.setText(current_equation + str(num))
-
+        self.arr.append(str(num))
+        
     def button_operation_clicked(self, operation):
-        equation = self.equation.text()
-        equation += operation
-        self.equation.setText(equation)
+        self.arr.append(operation)
+        self.equation.setText("")
 
     def button_equal_clicked(self):
-        equation = self.equation.text()
+        equation = ''.join(self.arr)
         solution = eval(equation)
         self.equation.setText(str(solution))
 
@@ -124,15 +123,25 @@ class Main(QDialog):
         current_equation = self.equation.text()
         self.equation.setText(current_equation[:-1])
 
-    #def button_mod_clicked(self):
+    def button_fountain_clicked(self):
+        current_equation = self.equation.text()
+        res = 1 / int(current_equation)
+        self.equation.setText(str(res))
 
-    #def button_fountain_clicked(self):
+    def button_square_clicked(self):
+        current_equation = self.equation.text()
+        res = int(current_equation) * int(current_equation)
+        self.equation.setText(str(res))
 
-    #def button_squar_clicked(self):
+    def button_sqrt_clicked(self):
+        current_equation = self.equation.text()
+        res = (int(current_equation))**(0.5)
+        self.equation.setText(str(res))
 
-    #def button_sqrt_clicked(self):
-
-    #def button_sign_clicked(self):
+    def button_sign_clicked(self):
+        current_equation = self.equation.text()
+        res = int(current_equation) * -1
+        self.equation.setText(str(res))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
