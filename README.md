@@ -12,6 +12,10 @@
 * PyQt5 모듈 설치 (pip install PyQt5)
 * 계산기 파일 실행 (python calaculator_main.py)
 
+## ISSUE
+* UI 개선 (버튼 위치 수정 / UI 수정 / 새 버튼 추가)
+* 기능 개선 (계산 기능 개선, 신규 연산 기능 추가)
+
 ## Reference
 
 * https://studyingrabbit.tistory.com/23 링크의 코드를 참고하였음
